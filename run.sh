@@ -2,11 +2,11 @@
 
 modprobe wireguard
 
-lsmod | grep '^wireguard ' || (
-apt-get update
-apt-get install -y linux-modules-$(uname -r) linux-headers-$(uname -r)
-modprobe wireguard
-)
+if ! lsmod | grep '^wireguard ' ; then
+	apt-get update
+	apt-get install -y linux-modules-$(uname -r) linux-headers-$(uname -r)
+	modprobe wireguard
+fi
 
 if [ -n "$IFACE" ] ; then
 

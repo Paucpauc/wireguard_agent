@@ -10,10 +10,23 @@ hostname=example-hostname&pubkey=HeyDjeriYhh&port=60000
 ```
 Response:
 
-`{"result": "unassigned"}` - remove IP, routes and peer
+- remove IP, routes and peer
+```
+{
+	"result": "unassigned"
+}
+```
 
-`{"result": "ok", "peer": "12.45.12.3:54310", "pubkey": "Iasasdasdqweqwe", "ip": "192.168.19.14", "routes": ["10.0.0.0/8", "192.168.0.0/16", "172.16.0.0/12",]}` - add peer, IP and routes.
-
+- add peer, IP and routes.
+```
+{
+	"result": "ok",
+	"peer": "12.45.12.3:54310",
+	"pubkey": "Iasasdasdqweqwe",
+	"ip": "192.168.19.14",
+	"routes": ["10.0.0.0/8", "192.168.0.0/16", "172.16.0.0/12"]
+}
+```
 
 
 Build wireguard module only:
@@ -22,9 +35,10 @@ docker run  --privileged --rm -ti -e 'IFACE=""' paucpauc/wireguard_agent:18.04
 ```
 Build module and set up wg0:
 ```
-docker run  --privileged -v /mnt/wg/:/mnt/ --network=host --rm -ti -d --name wg_agent paucpauc/wireguard_agent:18.04
+docker run  --privileged -v /mnt/wg/:/mnt/ --network=host --rm -ti -d paucpauc/wireguard_agent:18.04
 ```
 Build module and start agent:
 ```
-docker run  --privileged -v /mnt/wg/:/mnt/ --network=host --restart unless-stopped -d --name wg_agent -e 'CONTROLLER=https://api.controller.examlpe.com/update/' paucpauc/wireguard_agent:18.04
+docker run  --privileged -v /mnt/wg/:/mnt/ --network=host --restart unless-stopped -d --name wg_agent\
+   -e 'CONTROLLER=https://api.controller.examlpe.com/update/' paucpauc/wireguard_agent:18.04
 ```
