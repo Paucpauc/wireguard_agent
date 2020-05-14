@@ -1,4 +1,4 @@
-- 18.04 Ubuntu only.
+- 18.04 and 20.04 Ubuntu only.
 - Build dkms wireguard on each start if it not exists for current kernel.
 - If $IFACE defined (default "wg0") set up iface and generate private key to /mnt/
 - If $CONTROLLER defined (it must be URL) start polling each 5 second it URL for network config
@@ -18,13 +18,13 @@ Response:
 
 Build wireguard module only:
 ```
-docker run  --privileged --rm -ti -e 'IFACE=""' paucpauc/wireguard_agent
+docker run  --privileged --rm -ti -e 'IFACE=""' paucpauc/wireguard_agent:18.04
 ```
 Build module and set up wg0:
 ```
-docker run  --privileged -v /mnt/wg/:/mnt/ --network=host --rm -ti -d --name wg_agent paucpauc/wireguard_agent
+docker run  --privileged -v /mnt/wg/:/mnt/ --network=host --rm -ti -d --name wg_agent paucpauc/wireguard_agent:18.04
 ```
 Build module and start agent:
 ```
-docker run  --privileged -v /mnt/wg/:/mnt/ --network=host --restart unless-stopped -d --name wg_agent -e 'CONTROLLER=https://api.controller.examlpe.com/update/' paucpauc/wireguard_agent
+docker run  --privileged -v /mnt/wg/:/mnt/ --network=host --restart unless-stopped -d --name wg_agent -e 'CONTROLLER=https://api.controller.examlpe.com/update/' paucpauc/wireguard_agent:18.04
 ```
