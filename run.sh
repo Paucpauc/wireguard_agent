@@ -4,7 +4,7 @@ modprobe wireguard
 
 if ! lsmod | grep '^wireguard ' ; then
 	apt-get update
-	apt-get install -y linux-modules-$(uname -r) linux-headers-$(uname -r)
+	apt-get install -y linux-modules-$(uname -r) linux-headers-$(uname -r) wireguard-dkms wireguard-tools wireguard
 	modprobe wireguard
 fi
 
@@ -20,7 +20,7 @@ if [ -n "$IFACE" ] ; then
 	wg show $IFACE
 
 	if [ -n "CONTROLLER" ] ; then
-		if ip l show dev $IFACE ; then
+		if ip link show dev $IFACE ; then
 			exec wg_agent.py
 		fi
 	fi
