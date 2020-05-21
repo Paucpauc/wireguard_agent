@@ -20,7 +20,9 @@ if [ -n "$IFACE" ] ; then
 	wg show $IFACE
 
 	if [ -n "CONTROLLER" ] ; then
-		exec wg_agent.py
+		if ip l show dev $IFACE ; then
+			exec wg_agent.py
+		fi
 	fi
 
 fi
